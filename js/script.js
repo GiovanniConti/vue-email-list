@@ -7,11 +7,13 @@ window.addEventListener("DOMContentLoaded", () => {
     data: {
       title: 'Email List',
       url: 'https://flynn.boolean.careers/exercises/api/random/mail',
-      emailList: [],
+      emailsList: [],
       counter: 0,
+      complete: false,
     },
     methods: {
-      emailListGenerator(){
+
+      emailsListGenerator(){
         do{
           this.generateEmail()
         } while(this.counter < 10)
@@ -20,13 +22,17 @@ window.addEventListener("DOMContentLoaded", () => {
       generateEmail(){
         if(this.counter === 10){
           this.counter = 0;
-          this.emailList = [];
+          this.emailsList = [];
+          this.complete = false;
         }
         this.counter++;
 
         axios.get(this.url).then((apiResponse) => {
           const email = apiResponse.data.response;
-          this.emailList.push(email);
+          this.emailsList.push(email);
+          if(this.emailsList.length === 10){
+            this.complete = true;
+          }
         });
 
       },
