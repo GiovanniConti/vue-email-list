@@ -12,19 +12,23 @@ window.addEventListener("DOMContentLoaded", () => {
     },
     methods: {
       emailListGenerator(){
-        while(this.counter < 10){
+        do{
           this.generateEmail()
-        }
+        } while(this.counter < 10)
       },
 
       generateEmail(){
-        console.log("generateEmail called");
+        if(this.counter === 10){
+          this.counter = 0;
+          this.emailList = [];
+        }
         this.counter++;
+
         axios.get(this.url).then((apiResponse) => {
           const email = apiResponse.data.response;
           this.emailList.push(email);
-          console.log(this.emailList);
         });
+
       },
 
     },
